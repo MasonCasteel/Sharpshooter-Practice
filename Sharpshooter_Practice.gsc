@@ -9,6 +9,7 @@
 // - Chat commands: 1p = 20 targets, 2p = 39, 3p = 61, 4p = 84,
 //   0p or reset = default for the current player count, speed = toggle Speed Cola
 //   (for yourself), help = list the commands
+// - Everyone gets max ammo when a run ends
 #include maps\mp\gametypes_zm\_hud_message;
 #include maps\mp\zombies\_zm_audio;
 #include maps\mp\gametypes_zm\_hud_util;
@@ -419,6 +420,20 @@ ows_targets_start2()
 
     level notify( "sndEndOWSMusic" );
     level.sp_run_active = 0;
+
+    sp_give_max_ammo_all();
+}
+
+sp_give_max_ammo_all()
+{
+    foreach ( player in get_players() )
+    {
+        if ( !isalive( player ) )
+            continue;
+
+        foreach ( weapon in player getweaponslistprimaries() )
+            player givemaxammo( weapon );
+    }
 }
 
 sndhitnew()
@@ -428,6 +443,7 @@ sndhitnew()
     self waittill( "damage" );
 
     level.targettohit--;
+
     self playsound( "zmb_sq_target_hit" );
 }
 
