@@ -1,4 +1,4 @@
-# Buried Sharpshooter Practice (BO2 Zombies, Plutonium)
+# Buried Sharpshooter Practice Tool
 
 Practice the last step of the Buried easter egg from anywhere.
 
